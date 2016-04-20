@@ -84,11 +84,9 @@ public class BrownianSimulation {
         collisions.put(Double.valueOf(0), Integer.valueOf(0));
         
         while (!pq.isEmpty()) {
-        	if(colCount%50==0)
-        		System.out.println(t);
         	if(colCount == bruteForceRuns && brute){
         		System.out.println("SWITCH");
-        		brute = true;
+        		brute = false;
         		grid = new LinearGrid(L, (int)Math.floor(L/(0.1*(t/bruteForceRuns))), particles);
         	}
         	if (t- lastT >0.2){
@@ -98,6 +96,8 @@ public class BrownianSimulation {
             Event impendingEvent = pq.poll();
             if (impendingEvent.wasSuperveningEvent()) 
             	continue;
+            if(colCount%50==0)
+        		System.out.println(t);
             Output.getInstace().write(particles, t);
             Particle p1 = impendingEvent.p1;
             Particle p2 = impendingEvent.p2;
